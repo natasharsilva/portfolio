@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio</title>
+
+<!--
+==================================================================
+  HOW TO UPDATE THIS PORTFOLIO
+==================================================================
+  Everything you'll ever need to edit lives in the <script> block
+  near the bottom of this file. There are two parts:
+
+  1. PROFILE  -> your name, role, bio, and contact links.
+  2. WORKS    -> the list of your published pieces.
+
+  TO ADD A NEW PUBLISHED PIECE:
+  - Find the WORKS list.
+  - Copy one { ... } block (including the comma).
+  - Paste it anywhere inside the list and fill in your details.
+  - "lang" must be exactly one of: "en", "pt", "es"
+  - "date" is "YYYY-MM" (e.g. "2026-03"). Newest sorts to the top
+    automatically, so order in the list doesn't matter.
+  Save the file and re-upload it to your host. That's it.
+==================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper:     #FFFFFF;   /* white */
+    --paper-2:   #F3F5F9;   /* faint cool tint for hover surfaces */
+    --ink:       #1D1D1F;   /* near-black body text */
+    --ink-soft:  #5F5F66;   /* muted gray */
+    --blue:      #163A6E;   /* deep editorial blue */
+    --blue-2:    #1F4E9B;   /* brighter blue */
+    --yellow:    #F5C02B;   /* vibrant golden yellow */
+    --line:      #E7E7EA;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  ::selection { background: var(--yellow); color: var(--ink); }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Hanken Grotesk', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* faint paper grain */
+  body::after {
+    content: "";
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: clamp(2.5rem, 6vw, 6rem) clamp(1.5rem, 5vw, 3rem) 4rem;
+  }
+
+  /* ---------- Hero ---------- */
+  header { margin-bottom: clamp(3rem, 7vw, 5rem); }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.6rem;
+    opacity: 0;
+    animation: rise 0.7s ease forwards 0.05s;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 9px; height: 9px; border-radius: 2px;
+    background: var(--yellow);
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(3rem, 10vw, 6rem);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    color: var(--blue);
+    margin-bottom: 1.6rem;
+    opacity: 0;
+    animation: rise 0.8s ease forwards 0.12s;
+  }
+  h1 .accent { font-style: italic; font-weight: 400; }
+
+  .role {
+    font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+    max-width: 46ch;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: rise 0.8s ease forwards 0.22s;
+  }
+  .role b { font-weight: 600; color: var(--blue); }
+
+  .bio {
+    font-size: 1.02rem;
+    max-width: 54ch;
+    color: var(--ink-soft);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: rise 0.8s ease forwards 0.3s;
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    font-size: 0.84rem;
+    font-weight: 500;
+    opacity: 0;
+    animation: rise 0.8s ease forwards 0.38s;
+  }
+  .links a {
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--blue);
+    border-radius: 100px;
+    padding: 0.5rem 1.05rem;
+    transition: color 0.2s, background 0.2s;
+  }
+  .links a:hover { background: var(--blue); color: var(--paper); }
+
+  /* ---------- Filter bar ---------- */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: rise 0.8s ease forwards 0.46s;
+  }
+  .filter {
+    font-size: 0.82rem;
+    font-weight: 500;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    padding: 0.46rem 1rem;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .filter:hover { border-color: var(--blue); color: var(--blue); }
+  .filter.active {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: var(--paper);
+  }
+  .filter .count { opacity: 0.6; margin-left: 0.4em; }
+
+  /* ---------- Works list ---------- */
+  .works { border-top: 1px solid var(--line); margin-top: 1.5rem; }
+
+  .work {
+    display: grid;
+    grid-template-columns: 46px 96px 1fr;
+    gap: 1.4rem;
+    align-items: start;
+    padding: 1.7rem 1.4rem;
+    margin: 0 -1.4rem;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.25s ease, opacity 0.35s ease, transform 0.35s ease;
+  }
+  .work:hover { background: var(--paper-2); }
+  .work:hover .arrow { transform: translate(4px, -4px); }
+  .work:hover .wt {
+    background-size: 100% 36%;
+  }
+
+  .work-index {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    color: var(--blue);
+    padding-top: 0.55rem;
+  }
+
+  .work-meta {
+    font-size: 0.76rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    padding-top: 0.55rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .lang-tag {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.16rem 0.55rem;
+    border-radius: 5px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+  }
+  .note-tag {
+    font-size: 0.64rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue-2);
+    font-weight: 600;
+  }
+
+  .work.no-link { cursor: default; }
+  .work.no-link:hover { background: var(--paper-2); }
+
+  .work-body { min-width: 0; }
+  .work-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(1.4rem, 3vw, 1.95rem);
+    line-height: 1.14;
+    letter-spacing: -0.01em;
+    color: var(--blue);
+    margin-bottom: 0.5rem;
+  }
+  /* yellow highlighter that sweeps in on hover */
+  .wt {
+    background-image: linear-gradient(var(--yellow), var(--yellow));
+    background-repeat: no-repeat;
+    background-position: 0 90%;
+    background-size: 0% 36%;
+    transition: background-size 0.35s ease;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  .arrow {
+    display: inline-block;
+    color: var(--blue);
+    transition: transform 0.25s ease;
+    margin-left: 0.35em;
+  }
+  .work-outlet {
+    font-size: 0.94rem;
+    color: var(--ink-soft);
+    margin-bottom: 0.6rem;
+  }
+  .work-outlet b { color: var(--ink); font-weight: 600; }
+  .work-blurb { font-size: 0.97rem; color: var(--ink-soft); max-width: 58ch; }
+
+  .empty {
+    padding: 3rem 0;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+    color: var(--ink-soft);
+  }
+
+  /* staggered reveal */
+  .work.reveal { opacity: 0; transform: translateY(16px); animation: rise 0.6s ease forwards; }
+
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 600px) {
+    .work { grid-template-columns: 1fr; gap: 0.7rem; margin: 0 -1rem; padding: 1.5rem 1rem; }
+    .work-index { display: none; }
+    .work-meta { flex-direction: row; align-items: center; padding-top: 0; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="eyebrow" id="eyebrow"></div>
+      <h1 id="name"></h1>
+      <p class="role" id="role"></p>
+      <p class="bio" id="bio"></p>
+      <nav class="links" id="links"></nav>
+    </header>
+
+    <main>
+      <div class="filters" id="filters"></div>
+      <div class="works" id="works"></div>
+    </main>
+
+    <footer id="footer"></footer>
+  </div>
+
+<script>
+/* ==================================================================
+   1. PROFILE  — your details. Edit the values inside the quotes.
+   ================================================================== */
+const PROFILE = {
+  eyebrow: "Selected writing",
+  name:    "Natasha Silva",   // set in Fraunces; one consistent style
+  // Use <b> to bold key phrases.
+  role:    "Technical Content Writer at <b>Datadog</b>, writing across English, Portuguese, and Spanish.",
+  bio:     "Former software engineer and journalist, now writing technical deep-dives for Datadog's blog, The Monitor. Over the years I've published work spanning monitoring guides, investigative reporting, and magazine features — across three languages. A selection is below.",
+  // Add, remove, or rename links freely. Use mailto: for email.
+  links: [
+    { label: "Email",    url: "mailto:natashairsilva@gmail.com" },
+    { label: "LinkedIn", url: "https://linkedin.com/in/natasharsilva" },
+  ],
+  footerNote: "Updated " + new Date().getFullYear() + " · Built as a single HTML file."
+};
+
+/* ==================================================================
+   2. WORKS  — your published pieces.
+   To add one: copy a { ... } block, paste it in the list, edit it.
+     title  : the headline of the piece
+     outlet : where it was published (e.g. "Datadog Blog")
+     lang   : "en" | "pt" | "es"   (exactly one of these)
+     date   : "YYYY-MM"  (newest sorts to the top automatically)
+     url    : full link, starting with https://
+     blurb  : one short sentence describing it (optional)
+   ================================================================== */
+const WORKS = [
+
+  /* ---------- Datadog (English) ---------- */
+  {
+    title: "How to audit and clean up monitors effectively",
+    outlet: "Datadog — The Monitor",
+    lang: "en",
+    date: "2026-05",
+    url: "https://www.datadoghq.com/blog/how-to-audit-and-clean-up-monitors/",
+    blurb: "A structured framework for auditing monitoring coverage, reducing alert fatigue, and closing visibility gaps. Co-written with Capucine Marteau."
+  },
+
+  /* ---------- The Intercept Brasil (Portuguese) ---------- */
+  {
+    title: "Joice Hasselmann deu a largada para as maiores mentiras da eleição",
+    outlet: "The Intercept Brasil",
+    lang: "pt",
+    date: "2018-10",
+    url: "https://www.intercept.com.br/2018/10/26/joice-hasselmann-mentiras/",
+    blurb: "Investigation built on data analysis I conducted for Avaaz, tracing how electoral disinformation spread during Brazil's 2018 vote."
+  },
+
+  /* ---------- El País (Spanish) ---------- */
+  {
+    title: "Dos megaciudades, una crisis",
+    outlet: "El País — Internacional",
+    lang: "es",
+    date: "2016-03",
+    url: "https://elpais.com/internacional/2016/03/21/actualidad/1458597371_473379.html",
+    blurb: "How São Paulo and Mexico City — Latin America's two largest metropolises — race to fix their water systems. Co-written with Ángel Plascencia."
+  },
+
+  /*  NOTE: The five El País pieces below are real articles of yours, but
+      El País blocks automated reading, so I couldn't pull their exact
+      headlines. Just replace each "[Add headline]" with the real title —
+      the link and date are already correct. Delete this comment when done.  */
+  {
+    title: "[Add headline]",
+    outlet: "El País — Madrid",
+    lang: "es",
+    date: "2016-03",
+    url: "https://elpais.com/ccaa/2016/03/28/madrid/1459189605_412052.html",
+    blurb: ""
+  },
+  {
+    title: "[Add headline]",
+    outlet: "El País — Madrid",
+    lang: "es",
+    date: "2016-02",
+    url: "https://elpais.com/ccaa/2016/02/04/madrid/1454615507_070992.html",
+    blurb: ""
+  },
+  {
+    title: "[Add headline]",
+    outlet: "El País — Cultura",
+    lang: "es",
+    date: "2016-01",
+    url: "https://elpais.com/cultura/2016/01/07/actualidad/1452189548_280008.html",
+    blurb: ""
+  },
+  {
+    title: "[Add headline]",
+    outlet: "El País — Cultura",
+    lang: "es",
+    date: "2015-12",
+    url: "https://elpais.com/cultura/2015/12/17/actualidad/1450385058_017352.html",
+    blurb: ""
+  },
+  {
+    title: "[Add headline]",
+    outlet: "El País — Cultura",
+    lang: "es",
+    date: "2015-09",
+    url: "https://elpais.com/cultura/2015/09/15/actualidad/1442344399_081631.html",
+    blurb: ""
+  },
+
+  /* ---------- HuffPost (English) ---------- */
+  {
+    title: "Solving the Water Crisis Drop by Drop",
+    outlet: "HuffPost Impact",
+    lang: "en",
+    date: "2016-04",
+    url: "https://www.huffpost.com/entry/solving-the-water-crisis_b_9713932",
+    blurb: "Profiling Mexican NGO Isla Urbana and its low-cost rooftop rainwater-harvesting systems. Co-written with Ángel Plascencia."
+  },
+
+  /* ---------- St. Gallen Symposium Magazine (English, print) ----------
+     These two are print features with no public URL. They show on the page
+     as non-clickable entries with a "Print feature" tag. If you host the
+     PDFs somewhere (e.g. your site, Google Drive, Dropbox), just paste the
+     link into "url" and they'll become clickable automatically.            */
+  {
+    title: "Green Gold",
+    outlet: "St. Gallen Symposium Magazine",
+    lang: "en",
+    date: "2016-05",
+    url: "",
+    note: "Print feature",
+    blurb: "A profile of Euglena Co founder Mitsuru Izumo, who bets on a single-celled algae to fight malnutrition through eco-friendly capitalism."
+  },
+  {
+    title: "The Battle of a Lifetime",
+    outlet: "St. Gallen Symposium Magazine",
+    lang: "en",
+    date: "2016-05",
+    url: "",
+    note: "Print feature",
+    blurb: "A profile of Kenyan photojournalist-turned-activist Boniface Mwangi and his fight for democratic change."
+  },
+
+];
+
+/* ==================================================================
+   Below this line is the rendering logic. You don't need to touch it.
+   ================================================================== */
+const LANGS = {
+  en: { label: "English",    tag: "EN" },
+  pt: { label: "Português",  tag: "PT" },
+  es: { label: "Español",    tag: "ES" },
+};
+
+// ---- Profile ----
+document.getElementById("eyebrow").textContent = PROFILE.eyebrow;
+document.getElementById("name").innerHTML = PROFILE.name;
+document.getElementById("role").innerHTML = PROFILE.role;
+document.getElementById("bio").innerHTML = PROFILE.bio;
+document.getElementById("footer").textContent = PROFILE.footerNote;
+
+document.getElementById("links").innerHTML = PROFILE.links
+  .map(l => `<a href="${l.url}" target="_blank" rel="noopener">${l.label} ↗</a>`)
+  .join("");
+
+// ---- Filters ----
+let activeFilter = "all";
+const sorted = [...WORKS].sort((a, b) => b.date.localeCompare(a.date));
+
+function buildFilters() {
+  const counts = { all: sorted.length, en: 0, pt: 0, es: 0 };
+  sorted.forEach(w => { if (counts[w.lang] !== undefined) counts[w.lang]++; });
+
+  const defs = [{ key: "all", label: "All" }];
+  ["en", "pt", "es"].forEach(k => { if (counts[k] > 0) defs.push({ key: k, label: LANGS[k].label }); });
+
+  document.getElementById("filters").innerHTML = defs.map(d =>
+    `<button class="filter ${d.key === activeFilter ? "active" : ""}" data-key="${d.key}">
+       ${d.label}<span class="count">${counts[d.key]}</span>
+     </button>`
+  ).join("");
+
+  document.querySelectorAll(".filter").forEach(btn => {
+    btn.addEventListener("click", () => {
+      activeFilter = btn.dataset.key;
+      buildFilters();
+      renderWorks();
+    });
+  });
+}
+
+function fmtDate(d) {
+  const [y, m] = d.split("-");
+  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  return (months[parseInt(m,10)-1] || "") + " " + y;
+}
+
+function renderWorks() {
+  const list = activeFilter === "all" ? sorted : sorted.filter(w => w.lang === activeFilter);
+  const el = document.getElementById("works");
+
+  if (list.length === 0) {
+    el.innerHTML = `<div class="empty">// no pieces in this language yet</div>`;
+    return;
+  }
+
+  el.innerHTML = list.map((w, i) => {
+    const lang = LANGS[w.lang] || { tag: "?" };
+    const hasUrl = w.url && w.url.trim() !== "";
+    const tag = hasUrl ? "a" : "div";
+    const attrs = hasUrl ? `href="${w.url}" target="_blank" rel="noopener"` : "";
+    const arrow = hasUrl ? `<span class="arrow">↗</span>` : "";
+    return `
+      <${tag} class="work reveal${hasUrl ? "" : " no-link"}" ${attrs} style="animation-delay:${i * 0.06}s">
+        <div class="work-index">${String(i + 1).padStart(2, "0")}</div>
+        <div class="work-meta">
+          <span>${fmtDate(w.date)}</span>
+          <span class="lang-tag">${lang.tag}</span>
+          ${w.note ? `<span class="note-tag">${w.note}</span>` : ""}
+        </div>
+        <div class="work-body">
+          <div class="work-title"><span class="wt">${w.title}</span>${arrow}</div>
+          <div class="work-outlet"><b>${w.outlet}</b></div>
+          ${w.blurb ? `<div class="work-blurb">${w.blurb}</div>` : ""}
+        </div>
+      </${tag}>`;
+  }).join("");
+}
+
+buildFilters();
+renderWorks();
+</script>
+</body>
+</html>
