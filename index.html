@@ -5,27 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio</title>
 
-<!--
-==================================================================
-  HOW TO UPDATE THIS PORTFOLIO
-==================================================================
-  Everything you'll ever need to edit lives in the <script> block
-  near the bottom of this file. There are two parts:
-
-  1. PROFILE  -> your name, role, bio, and contact links.
-  2. WORKS    -> the list of your published pieces.
-
-  TO ADD A NEW PUBLISHED PIECE:
-  - Find the WORKS list.
-  - Copy one { ... } block (including the comma).
-  - Paste it anywhere inside the list and fill in your details.
-  - "lang" must be exactly one of: "en", "pt", "es"
-  - "date" is "YYYY-MM" (e.g. "2026-03"). Newest sorts to the top
-    automatically, so order in the list doesn't matter.
-  Save the file and re-upload it to your host. That's it.
-==================================================================
--->
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
@@ -314,33 +293,17 @@
   </div>
 
 <script>
-/* ==================================================================
-   1. PROFILE  — your details. Edit the values inside the quotes.
-   ================================================================== */
 const PROFILE = {
   eyebrow: "Selected writing",
-  name:    "Natasha Silva",   // set in Fraunces; one consistent style
-  // Use <b> to bold key phrases.
+  name:    "Natasha Silva",
   role:    "Technical Content Writer at <b>Datadog</b>, writing across English, Portuguese, and Spanish.",
-  bio:     "Former software engineer and journalist, now writing technical deep-dives for Datadog's blog, The Monitor. Over the years I've published work spanning monitoring guides, investigative reporting, and magazine features — across three languages. A selection is below.",
-  // Add, remove, or rename links freely. Use mailto: for email.
+  bio:     "Former software engineer and journalist, now writing technical deep-dives for Datadog's blog, The Monitor. Over the years I've published work spanning monitoring guides, investigative reporting, and magazine features. A selection is below.",
   links: [
-    { label: "Email",    url: "mailto:natashairsilva@gmail.com" },
     { label: "LinkedIn", url: "https://linkedin.com/in/natasharsilva" },
   ],
   footerNote: "Updated " + new Date().getFullYear() + " · Built as a single HTML file."
 };
 
-/* ==================================================================
-   2. WORKS  — your published pieces.
-   To add one: copy a { ... } block, paste it in the list, edit it.
-     title  : the headline of the piece
-     outlet : where it was published (e.g. "Datadog Blog")
-     lang   : "en" | "pt" | "es"   (exactly one of these)
-     date   : "YYYY-MM"  (newest sorts to the top automatically)
-     url    : full link, starting with https://
-     blurb  : one short sentence describing it (optional)
-   ================================================================== */
 const WORKS = [
 
   /* ---------- Datadog (English) ---------- */
@@ -372,50 +335,45 @@ const WORKS = [
     url: "https://elpais.com/internacional/2016/03/21/actualidad/1458597371_473379.html",
     blurb: "How São Paulo and Mexico City — Latin America's two largest metropolises — race to fix their water systems. Co-written with Ángel Plascencia."
   },
-
-  /*  NOTE: The five El País pieces below are real articles of yours, but
-      El País blocks automated reading, so I couldn't pull their exact
-      headlines. Just replace each "[Add headline]" with the real title —
-      the link and date are already correct. Delete this comment when done.  */
   {
-    title: "[Add headline]",
+    title: "La Camerana cierra sus puertas tras 162 años de historia",
     outlet: "El País — Madrid",
     lang: "es",
     date: "2016-03",
     url: "https://elpais.com/ccaa/2016/03/28/madrid/1459189605_412052.html",
-    blurb: ""
+    blurb: "The last days of La Camerana, a 162-year-old Madrid shop, told through its final owner, and what its closure reveals about the rising rents and chain franchises squeezing out the city's traditional commerce."
   },
   {
-    title: "[Add headline]",
+    title: "Un empujón para ir más allá de la Cañada Real",
     outlet: "El País — Madrid",
     lang: "es",
-    date: "2016-02",
+    date: "2016-07",
     url: "https://elpais.com/ccaa/2016/02/04/madrid/1454615507_070992.html",
-    blurb: ""
+    blurb: "Inside a volunteer-run Cáritas project in Madrid's Cañada Real, where small routines become real victories for children growing up in one of the city's most excluded neighborhoods."
   },
   {
-    title: "[Add headline]",
+    title: "“A veces no me gustaría vivir en mi ciudad. Ni en mi país”",
     outlet: "El País — Cultura",
     lang: "es",
     date: "2016-01",
     url: "https://elpais.com/cultura/2016/01/07/actualidad/1452189548_280008.html",
-    blurb: ""
+    blurb: "A quickfire interview with Brazilian screen legend Fernanda Montenegro on memory, family, and the violence shadowing her country."
   },
   {
-    title: "[Add headline]",
+    title: "Hemingway protagoniza el deshielo cubano",
     outlet: "El País — Cultura",
     lang: "es",
     date: "2015-12",
     url: "https://elpais.com/cultura/2015/12/17/actualidad/1450385058_017352.html",
-    blurb: ""
+    blurb: "The making of Papa, the first American film shot in Cuba since the embargo, and how Hemingway became an unlikely bridge between the two countries."
   },
   {
-    title: "[Add headline]",
+    title: "Las lenguas que América del Sur quiere salvar",
     outlet: "El País — Cultura",
     lang: "es",
     date: "2015-09",
     url: "https://elpais.com/cultura/2015/09/15/actualidad/1442344399_081631.html",
-    blurb: ""
+    blurb: "More than 400 of South America's languages, most of them Indigenous, are vanishing. These are stories about the people fighting to save them, from classroom revivals to translating Facebook into Aymara. Co-written with Dora Luz Romero."
   },
 
   /* ---------- HuffPost (English) ---------- */
@@ -454,9 +412,6 @@ const WORKS = [
 
 ];
 
-/* ==================================================================
-   Below this line is the rendering logic. You don't need to touch it.
-   ================================================================== */
 const LANGS = {
   en: { label: "English",    tag: "EN" },
   pt: { label: "Português",  tag: "PT" },
